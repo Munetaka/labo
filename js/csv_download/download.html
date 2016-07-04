@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+
+<h1>CSV出力サンプル</h1>
+
+<input type="button" value="CSVリンク生成" onclick="f()"><br>
+
+<br>
+
+<a id="hoge">ここからCSVをダウンロード</a><br>
+
+<script>
+
+// 文字列から,Unicodeコードポイントの配列を作る
+function str_to_unicode_array( str ){
+  var arr = [];
+  for( var i = 0; i < str.length; i ++ ){
+    arr.push( str.charCodeAt( i ) );
+  }
+  return arr;
+};
+
+
+// CSVダウンロードリンクを生成する
+function f(){
+
+  // CSVの内容
+  // SJIS変換せずにCSV出力するとExcelでは文字化けする
+  var csv_line = "test,test,test\r\n1,2,3";
+
+  // Unicodeコードポイントの配列に変換する
+  var unicode_array = str_to_unicode_array(csv_line);
+
+  // 文字コード配列をTypedArrayに変換する
+  var uint8_array = new Uint8Array(unicode_array);
+
+  // 指定されたデータを保持するBlobを作成する
+  // todo: IE9でblobが動かない......
+  var blob = new Blob([uint8_array], {type: 'text/csv'});
+
+  // Aタグのhref属性にBlobオブジェクトを設定し、リンクを生成
+  window.URL = window.URL || window.webkitURL;
+  document.getElementById("hoge").href = window.URL.createObjectURL(blob);
+  document.getElementById("hoge").download = "test.csv";
+
+}
+
+</script>
+
+</body>
+</html>
