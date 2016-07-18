@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="desktop-notify.js"></script>
+</head>
+<body>
+
+<button type="button" onclick="notifyMe()">notify</button>
+<button type="button" onclick="notifyJs()">notify2</button>
+
+<script>
+// https://developer.mozilla.org/en-US/docs/Web/API/notification
+function notifyMe() {
+  var Notification = window.Notification || window.mozNotification || window.webkitNotification;
+
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("Hi there!");
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Hi there!");
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you 
+  // want to be respectful there is no need to bother them any more.
+
+  // click event
+  notification.addEventListener('click', function() {
+    console.log('click');
+  });
+}
+
+function notifyJs() {
+
+  // check if the browser supports notifications
+  if (!notify.isSupported) {
+    console.log('not supported');
+    return;
+  }
+
+  var config = {
+    pageVisibility: false,
+    autoClose: 5000,
+  }
+
+  //check whether notification permissions have already been granted
+  if (notify.permissionLevel() === notify.PERMISSION_GRANTED) {
+    console.log('create notification');
+    notify.config(config);
+    var notification = notify.createNotification(
+      'title',
+      {
+        body: 'body',
+        icon: 'alert.ico' // required
+      }
+    );
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (notify.permissionLevel() === notify.PERMISSION_DEFAULT_) {
+    notify.requestPermission(function(permission) {
+      if (permission === notify.PERMISSION_GRANTED) {
+        notify.createNotification(
+          'title',
+          {
+            body: 'body'
+          }
+        );
+      }
+    });
+  }
+
+};
+
+(function() {
+  setTimeout(function() {
+    notifyJs();
+  }, 3000);
+})();
+</script>
+
+</body>
+</html>
