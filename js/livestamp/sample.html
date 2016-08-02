@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/livestamp/1.1.2/livestamp.min.js"></script>
+</head>
+<body>
+
+<button type="button" onclick="update()">update now</button>
+<span id="livestamp" data-livestamp="1470135177"></span>
+
+<script>
+function update() {
+  var m = moment();
+  $('#livestamp').livestamp(m.format());
+}
+</script>
+</body>
+</html>
