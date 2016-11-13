@@ -1,0 +1,28 @@
+{
+  "name": "throne-assets",
+  "version": "1.0.0",
+  "description": "frontend tools",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "browser-sync": "^2.12.12",
+    "css-mqpacker": "^5.0.1",
+    "cssnano": "^3.7.0",
+    "doiuse": "^2.3.0",
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-sourcemaps": "^1.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@xig.gilpa.org:throne/ui.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
