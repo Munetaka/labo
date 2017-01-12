@@ -18,7 +18,7 @@ class SklearnDataGenerator():
         return SklearnDataGenerator.type_list.keys()
 
     @staticmethod
-    def make(type=None):
+    def generate(type=None):
 
         if type == None:
             print('plz select data type')
@@ -51,7 +51,7 @@ class SklearnDataGenerator():
         # pp.pprint(iris.target) # target value means target_name
         X = np.array(iris.data)
         y = np.array(iris.target)
-        return (X, y)
+        return SklearnDataGenerator.shuffle(X, y)
 
     @staticmethod
     def load_boston():
@@ -79,7 +79,7 @@ class SklearnDataGenerator():
         # pp.pprint(boston.target) # house prices
         X = boston.data
         y = boston.target
-        return X, y
+        return SklearnDataGenerator.shuffle(X, y)
 
     @staticmethod
     def load_diabetes():
@@ -96,7 +96,7 @@ class SklearnDataGenerator():
         # pp.pprint(diabetes.target) # target means 1年後の疾患進行状況
         X = diabetes.data
         y = diabetes.target
-        return X, y
+        return SklearnDataGenerator.shuffle(X, y)
 
     @staticmethod
     def load_digits():
@@ -117,7 +117,7 @@ class SklearnDataGenerator():
 
         X = digits.data
         y = digits.target
-        return X, y
+        return SklearnDataGenerator.shuffle(X, y)
 
     @staticmethod
     def load_linnerud():
@@ -138,14 +138,26 @@ class SklearnDataGenerator():
 
         X = linnerud.data
         y = linnerud.target
-        return X, y
+        return SklearnDataGenerator.shuffle(X, y)
+
+    @staticmethod
+    def shuffle(X, y):
+        rng = np.random.RandomState(0)
+        permutation = rng.permutation(len(X))
+        return X[permutation], y[permutation]
+
+    @staticmethod
+    def train_test_split(X, y):
+        from sklearn.cross_validation import train_test_split
+        train_X, test_X, train_y, test_y = train_test_split(X, y, train_size=0.5, random_state=1999)
+        return train_X, test_X, train_y, test_y
 
 if __name__ == '__main__':
     generator = SklearnDataGenerator()
-    X, y = generator.make('iris')
-    # X, y = generator.make('boston')
-    # X, y = generator.make('diabetes')
-    # X, y = generator.make('digits')
-    # X, y = generator.make('linnerud')
+    X, y = generator.generate('iris')
+    # X, y = generator.generate('boston')
+    # X, y = generator.generate('diabetes')
+    # X, y = generator.generate('digits')
+    # X, y = generator.generate('linnerud')
     print(np.array(X).shape)
     print(np.array(y).shape)
