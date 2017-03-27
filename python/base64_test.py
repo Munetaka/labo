@@ -1,6 +1,6 @@
 import base64
 
-img_file = ('test.jpg')
+img_file = 'test.jpg'
 iopen = open(img_file, 'rb').read()
 b64 = base64.encodestring(iopen)
 b64_urlsafe = base64.urlsafe_b64encode(iopen)
@@ -18,4 +18,3 @@ try:
 except TypeError:
     # python3
     print('base64(python3) = ' + b64.decode('utf8'))
-
